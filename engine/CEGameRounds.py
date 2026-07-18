@@ -80,7 +80,7 @@ class GameRounds:
         rng = random.Random(seed)
         key = "2-4" if 2 <= num_players <= 4 else "5-6"
 
-        selected_rounds = rng.sample(BASE_ROUNDS[key], 5)
+        selected_rounds = rng.sample(BASE_ROUNDS[key], 4)
         selected_station = rng.sample(BASE_ROUNDS["station"], 1)
 
         rounds = [Round(turn_types=t_list) for t_list in selected_rounds + selected_station]

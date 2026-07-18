@@ -39,14 +39,9 @@ pytest
 
 ## Known gaps / assumptions to revisit
 
-- `models/CETrain.build_base_game` approximates loot placement per car -
-  swap in the exact printed loot tables if you want board-accurate setup.
 - Character special abilities (Doc's 7th card, Belle's punch-immunity, etc.)
   are not implemented - `BanditType.ability` is a placeholder string.
 - Round-card end-of-round effects (Station cards, "Angry Marshal", etc.)
   are not implemented - see `Round.eor_effect` / the log line in
   `CEGameManager.run_round`.
-- `GameRounds.create_for_players` samples 5 regular rounds + 1 station
-  round (6 total). The official rules use 4 regular + 1 station (5 total) -
-  worth double-checking which you intended; the existing test asserts 6.
 - Marshal & Prisoners / Horses & Stagecoach expansions are out of scope.
