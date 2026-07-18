@@ -16,8 +16,13 @@ class LootType(Enum):
     STRONGBOX = auto()
 
 PURSE_VALUES = [250, 300, 350, 400, 450]
-JEWEL_VALUE = 300
-STRONGBOX_VALUE = 100  # only ever in the Locomotive at setup
+JEWEL_VALUE = 500
+STRONGBOX_VALUE = 1000  # only ever in the Locomotive at setup
+# The full purse population used by Train.build_base_game(). Pulled out to a
+# module constant (rather than left inline) so belief_state.py can compute a
+# card-counting-style average loot value from the same numbers instead of
+# duplicating them.
+PURSE_POOL = ([250] * 12) + ([300] * 2) + [350, 400, 450, 500]
 BASE_PASSENGER_LOOT_POOLS = [
     [3, 0],
     [4, 1],

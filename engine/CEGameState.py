@@ -14,7 +14,7 @@ from typing import Dict, List, Optional
 from models.CETrain import Train
 from models.CEPieces import Bandit, BanditType, Marshal
 from models.CECards import PlayerCards
-from engine.CEGameRounds import GameRounds
+from engine.CEGameRounds import GameRounds, StackEntry
 
 
 @dataclass
@@ -29,6 +29,7 @@ class GameState:
     seating_order: List[str] = field(default_factory=list)  # fixed player order
     log: List[str] = field(default_factory=list)
     gunslinger: Optional[str] = None                        # first bandit to exhaust all 6 bullets
+    round_stack: List[StackEntry] = field(default_factory=list)  # this round's plays so far, in play order
 
     @classmethod
     def new_game(cls, bandit_names: List[str], seed: Optional[int] = None) -> "GameState":

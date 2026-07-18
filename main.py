@@ -6,8 +6,8 @@ and reports the results.
 
 Examples:
     python main.py
-    python main.py --agents random random heuristic aggressive
-    python main.py --agents heuristic aggressive --games 200 --seed 1
+    python main.py --agents random random greedy aggressive
+    python main.py --agents greedy aggressive --games 200 --seed 1
     python main.py --agents random random --games 1 --verbose
 """
 
@@ -16,35 +16,38 @@ import statistics
 from collections import Counter
 from typing import Dict, List, Optional, Type
 
-from ai.base_agent import Agent
-from ai.random_bot import RandomAgent
-from ai.heuristic_agent import HeuristicAgent
-from ai.aggressive_agent import AggressiveAgent
+from ai.CEBaseAgent import Agent
+from ai.agents.CERandomAgent import RandomAgent
+from ai.agents.CEGreedyAgent import GreedyAgent
+from ai.agents.CEAggressiveAgent import AggressiveAgent
 from engine.CEGameManager import play_game
 from engine.CEGameState import GameState
 
 AGENT_REGISTRY: Dict[str, Type[Agent]] = {
     "random": RandomAgent,
-    "heuristic": HeuristicAgent,
+    "greedy": GreedyAgent,
     "aggressive": AggressiveAgent,
 }
 
 # Matches models.CEPieces.BASE_BANDITS ordering (max 6 players).
-BANDIT_NAMES = ["GHOST", "DOC", "TUCO", "CHEYENNE", "BELLE", "DJANGo"]
+BANDIT_NAMES = ["GHOST", "DOC", "TUCO", "CHEYENNE", "BELLE", "DJANGO"]
 
 
 def build_agents(agent_kinds: List[str], seed: Optional[int]) -> Dict[str, Agent]:
     """One Agent instance per bandit, each with its own derived RNG seed
     so a run is reproducible but agents aren't all sampling in lockstep."""
     agents: Dict[str, Agent] = {}
+
     for i, kind in enumerate(agent_kinds):
-        cls = AGENT_REGISTRY[kind]
         bandit_name = BANDIT_NAMES[i]
-        if kind == "random":
-            agents[bandit_name] = cls()
-        else:
-            agent_seed = None if seed is None else seed + i
-            agents[bandit_name] = cls(seed=agent_seed)
+
+        if kind not in AGENT_REGISTRY:
+            raise ValueError(f"Unknown agent type: {kind}")
+
+        cls = AGENT_REGISTRY[kind]
+
+        agents[bandit_name] = cls(name=bandit_name, all_bandit_names=BANDIT_NAMES)
+
     return agents
 
 
@@ -69,7 +72,7 @@ def run_one_game(agent_kinds: List[str], seed: Optional[int], verbose: bool) -> 
 def main():
     parser = argparse.ArgumentParser(description="Simulate Colt Express games between AI agents.")
     parser.add_argument(
-        "--agents", nargs="+", default=["random", "random", "heuristic", "aggressive"],
+        "--agents", nargs="+", default=["random", "aggressive", "greedy"],
         choices=list(AGENT_REGISTRY),
         help="One agent type per bandit, 2-6 entries (default: random random heuristic aggressive).",
     )

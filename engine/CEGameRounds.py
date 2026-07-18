@@ -5,6 +5,8 @@ from typing import List, Optional
 from enum import Enum, auto
 import random
 
+from engine.CEActions import Action
+
 class TurnType(Enum):
     NORMAL = auto()
     TUNNEL = auto() # Players play actions face-down
@@ -68,6 +70,17 @@ class Round:
 
     def __repr__(self):
         return f"Round(Turns: {self.turns})"
+
+
+@dataclass
+class StackEntry:
+    """One played-and-not-yet-resolved action, tagged with the Turn it was
+    played in. Living on GameState.round_stack (see CEGameState.py) lets
+    later-acting bandits this round - and CEObservation.py - see what's
+    being played so far without needing to thread extra parameters through
+    the turn/round loop."""
+    action: Action
+    turn: Turn
 
 
 @dataclass
