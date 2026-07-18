@@ -3,7 +3,7 @@
 from typing import Optional, List
 from ai.CEHeuisticAgent import HeuristicAgent
 from engine.CEObservation import Observation
-from ai.belief_state import BeliefState
+from ai.CEBeliefState import BeliefState
 from engine.CEActions import Action, ActionType
 from models.CETrain import LootType
 

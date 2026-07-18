@@ -9,7 +9,7 @@ import random
 from typing import Optional, List
 
 from ai.CEBaseAgent import Agent
-from ai.belief_state import BeliefState
+from ai.CEBeliefState import BeliefState
 from engine.CEObservation import Observation, legal_actions_for_observation
 from engine.CEActions import Action
 from engine.CEGameRounds import Turn

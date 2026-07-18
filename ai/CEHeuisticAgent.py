@@ -10,7 +10,7 @@ from ai.CEBaseAgent import Agent
 from engine.CEActions import Action
 from engine.CEGameRounds import Turn
 from engine.CEObservation import Observation, legal_actions_for_observation
-from ai.belief_state import BeliefState
+from ai.CEBeliefState import BeliefState
 
 # A Scorer takes the current view of the world and the proposed action
 # and returns a float score.

@@ -8,7 +8,7 @@ spending its last bullet to lock in the Gunslinger bonus.
 from typing import List, Optional
 
 from ai.CEHeuisticAgent import HeuristicAgent
-from ai.belief_state import BeliefState
+from ai.CEBeliefState import BeliefState
 from engine.CEActions import Action, ActionType
 from engine.CEObservation import Observation
 

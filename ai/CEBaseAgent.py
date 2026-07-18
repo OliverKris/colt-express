@@ -14,7 +14,7 @@ from engine.CEActions import Action
 from engine.CEGameRounds import Turn
 from engine.CEGameState import GameState
 from engine.CEObservation import Observation, build_observation
-from ai.belief_state import BeliefState
+from ai.CEBeliefState import BeliefState
 
 
 class Agent(ABC):
