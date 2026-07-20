@@ -44,7 +44,7 @@ class BeliefState:
         bandit. Must be a copy - handing out the same dict to every
         opponent would mean decrementing one opponent's estimated deck
         silently decrements everyone else's too."""
-        return BASE_DECK_COMPOSITION
+        return dict(BASE_DECK_COMPOSITION)
     
     def estimate_piece_value(self, kind: LootType) -> float:
         """Expected value of a single loot piece of the given kind.
@@ -107,7 +107,7 @@ class BeliefState:
         If the count drops below zero (impossible in a perfect game),
         it signals a discrepancy (e.g., they drew or a shuffle occurred)
         """
-        if bandit_name in self.opponent_decks[bandit_name]:
+        if bandit_name in self.opponent_decks:
             deck = self.opponent_decks[bandit_name]
             if deck.get(card_type, 0) > 0:
                 deck[card_type] -= 1

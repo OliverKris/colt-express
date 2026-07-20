@@ -20,6 +20,7 @@ from ai.CEBaseAgent import Agent
 from ai.agents.CERandomAgent import RandomAgent
 from ai.agents.CEGreedyAgent import GreedyAgent
 from ai.agents.CEAggressiveAgent import AggressiveAgent
+from ai.agents.CEMCTSAgent import MCTSAgent
 from engine.CEGameManager import play_game
 from engine.CEGameState import GameState
 
@@ -27,6 +28,7 @@ AGENT_REGISTRY: Dict[str, Type[Agent]] = {
     "random": RandomAgent,
     "greedy": GreedyAgent,
     "aggressive": AggressiveAgent,
+    "mcts": MCTSAgent,
 }
 
 # Matches models.CEPieces.BASE_BANDITS ordering (max 6 players).
